@@ -569,8 +569,8 @@ MongoClient.connect(url, function(err, db) {
         $addToSet: {}//same for unlike except this is $pull for delete and $push for post
       };
       update.$addToSet['comments.' + commentIdx + ".likeCounter"] = new ObjectId(userId);
-      db.collection('feedItems').findAndModify({_id: feedItemId}, [['_id','asc']], update, function(err,result){
-        function(err,result){
+      db.collection('feedItems').findAndModify({_id: feedItemId}), [['_id','asc']], update, function(err,result){
+       // function(err,result){
           if(err){
             return sendDatabaseError(res, err);
           }
@@ -590,7 +590,7 @@ MongoClient.connect(url, function(err, db) {
             }
           }
         }
-      }
+      //}
     }
     else{
       res.status(401).end(); 
@@ -609,8 +609,7 @@ MongoClient.connect(url, function(err, db) {
         $pull: {}
       };
       update.$addToSet['comments.' + commentIdx + ".likeCounter"] = new ObjectId(userId);
-      db.collection('feedItems').findAndModify({_id: feedItemId}, [['_id','asc']], update, 
-        function(err,result){
+      db.collection('feedItems').findAndModify({_id: feedItemId}), [['_id','asc']], update, 
         function(err,result){
           if(err){
             return sendDatabaseError(res, err);
@@ -631,7 +630,6 @@ MongoClient.connect(url, function(err, db) {
             }
           }
         }
-      }
     }
     else{
       res.status(401).end(); 
